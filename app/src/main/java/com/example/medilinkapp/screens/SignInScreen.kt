@@ -75,7 +75,7 @@ fun SignInScreen(onSignInSuccess: () -> Unit, onNavigateToSignUp: () -> Unit) {
 
             Text(
                 text = "Welcome Back",
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.headlineLarge
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -90,11 +90,13 @@ fun SignInScreen(onSignInSuccess: () -> Unit, onNavigateToSignUp: () -> Unit) {
             OutlinedTextField(
                 value = userEmail.value,
                 onValueChange = { userEmail.value = it },
-                label = { Text("Email") },
+                label = { Text("Email",style = MaterialTheme.typography.bodyLarge) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                shape = RoundedCornerShape(10.dp),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = Color(0xff57CACA),
-                    unfocusedBorderColor = Color.Gray
+                    unfocusedBorderColor = Color.Gray,
+                    focusedLabelColor = Color(0xff57CACA),
                 ),
                 modifier = Modifier.fillMaxWidth()
             )
@@ -104,13 +106,15 @@ fun SignInScreen(onSignInSuccess: () -> Unit, onNavigateToSignUp: () -> Unit) {
             OutlinedTextField(
                 value = userPassword.value,
                 onValueChange = { userPassword.value = it },
-                label = { Text("Password") },
+                label = { Text("Password",style = MaterialTheme.typography.bodyLarge) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                shape = RoundedCornerShape(10.dp),
                 visualTransformation = if (togglePasswordVisibility.value) VisualTransformation.None else PasswordVisualTransformation(),
                 modifier = Modifier.fillMaxWidth(),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = Color(0xff57CACA),
-                    unfocusedBorderColor = Color.Gray
+                    unfocusedBorderColor = Color.Gray,
+                    focusedLabelColor = Color(0xff57CACA),
                 ),
                 trailingIcon = {
                     IconButton(onClick = { togglePasswordVisibility.value = !togglePasswordVisibility.value }) {
@@ -129,14 +133,14 @@ fun SignInScreen(onSignInSuccess: () -> Unit, onNavigateToSignUp: () -> Unit) {
                 onClick = {
                     if (userEmail.value.isNotEmpty() && userPassword.value.isNotEmpty()) {
                         authViewModel.logIn(context, userEmail.value, userPassword.value)
+                        onSignInSuccess()
                     } else {
                         Toast.makeText(context, "Please enter email and password", Toast.LENGTH_SHORT).show()
                     }
-                    onSignInSuccess()
                 },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(Color(0xff57CACA)),
-                shape = RoundedCornerShape(5.dp)
+                shape = RoundedCornerShape(10.dp)
             ) {
                 Text("Log into Account", style = MaterialTheme.typography.titleMedium, color = Color.Black)
             }
@@ -159,7 +163,7 @@ fun SignInScreen(onSignInSuccess: () -> Unit, onNavigateToSignUp: () -> Unit) {
                 },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(Color.Black),
-                shape = RoundedCornerShape(5.dp)
+                shape = RoundedCornerShape(10.dp)
             ) {
                 Text("Sign in with Google", style = MaterialTheme.typography.titleMedium, color = Color.White)
             }
@@ -167,8 +171,8 @@ fun SignInScreen(onSignInSuccess: () -> Unit, onNavigateToSignUp: () -> Unit) {
             Spacer(modifier = Modifier.weight(0.5f))
 
             Row {
-                Text("Don’t have an account?", style = MaterialTheme.typography.titleMedium, color = Color.Black, modifier = Modifier.padding(top = 13.dp))
-                Spacer(modifier = Modifier.width(4.dp))
+                Text("Don’t have an account ?", style = MaterialTheme.typography.titleMedium, color = Color.Black, modifier = Modifier.padding(top = 13.dp))
+                Spacer(modifier = Modifier.width(2.dp))
                 TextButton(onClick = onNavigateToSignUp) {
                     Text("Sign Up", style = MaterialTheme.typography.titleMedium, color = Color(0xff57CACA))
                 }

@@ -64,7 +64,7 @@ fun SignUpScreen(onSignUpSuccess: () -> Unit, onNavigateSignIn: () -> Unit) {
         Column(
             modifier = Modifier
                 .padding(paddingValues)
-                .padding(24.dp)
+                .padding(16.dp)
                 .fillMaxSize(),
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
@@ -73,7 +73,7 @@ fun SignUpScreen(onSignUpSuccess: () -> Unit, onNavigateSignIn: () -> Unit) {
 
             Text(
                 text = "Create An Account",
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.headlineLarge
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
@@ -88,9 +88,11 @@ fun SignUpScreen(onSignUpSuccess: () -> Unit, onNavigateSignIn: () -> Unit) {
                 onValueChange = { userEmail.value = it },
                 label = { Text("Email") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                shape = RoundedCornerShape(10.dp),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = Color(0xff57CACA),
-                    unfocusedBorderColor = Color.Gray
+                    unfocusedBorderColor = Color.Gray,
+                    focusedLabelColor = Color(0xff57CACA)
                 ),
                 modifier = Modifier.fillMaxWidth()
             )
@@ -99,11 +101,13 @@ fun SignUpScreen(onSignUpSuccess: () -> Unit, onNavigateSignIn: () -> Unit) {
                 value = userPassword.value,
                 onValueChange = { userPassword.value = it },
                 label = { Text("Password") },
+                shape = RoundedCornerShape(10.dp),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 visualTransformation = if (togglePasswordVisibility.value) VisualTransformation.None else PasswordVisualTransformation(),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = Color(0xff57CACA),
-                    unfocusedBorderColor = Color.Gray
+                    unfocusedBorderColor = Color.Gray,
+                    focusedLabelColor = Color(0xff57CACA)
                 ),
                 modifier = Modifier.fillMaxWidth(),
                 trailingIcon = {
@@ -132,7 +136,7 @@ fun SignUpScreen(onSignUpSuccess: () -> Unit, onNavigateSignIn: () -> Unit) {
                 },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(Color(0xff57CACA)),
-                shape = RoundedCornerShape(5.dp)
+                shape = RoundedCornerShape(10.dp)
             ) {
                 Text("Create An Account", color = Color.Black)
             }
@@ -151,14 +155,14 @@ fun SignUpScreen(onSignUpSuccess: () -> Unit, onNavigateSignIn: () -> Unit) {
                 },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(Color.Black),
-                shape = RoundedCornerShape(5.dp)
+                shape = RoundedCornerShape(10.dp)
             ) {
                 Text("Sign up with Google", color = Color.White)
             }
             Spacer(modifier = Modifier.weight(0.5f))
             Row {
-                Text("Already have an account?", modifier = Modifier.padding(top = 13.dp), style = MaterialTheme.typography.titleMedium)
-                Spacer(modifier = Modifier.width(8.dp))
+                Text("Already have an account ?", modifier = Modifier.padding(top = 13.dp), style = MaterialTheme.typography.titleMedium)
+                Spacer(modifier = Modifier.width(2.dp))
                 TextButton(onClick = onNavigateSignIn) {
                     Text("Sign In", color = Color(0xff57CACA),style = MaterialTheme.typography.titleMedium)
                 }
