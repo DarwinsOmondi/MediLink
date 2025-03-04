@@ -8,17 +8,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.medilinkapp.screens.DoctorFormScreen
+import com.example.medilinkapp.screens.DoctorSignUpScreen
+import com.example.medilinkapp.screens.PatientSignUpScreen
 import com.example.medilinkapp.screens.SignInScreen
-import com.example.medilinkapp.screens.SignUpScreen
-import com.example.medilinkapp.ui.theme.MediLinkAppTheme
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,10 +27,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Scaffold(modifier = Modifier.fillMaxSize(),
                 containerColor = MaterialTheme.colorScheme.background) { innerPadding ->
-                SupaBaseApp(
-                    navController = rememberNavController(),
-                    modifier = Modifier.padding(innerPadding)
-                )
+               DoctorFormScreen(Modifier.padding(innerPadding))
             }
         }
     }
@@ -53,7 +50,7 @@ fun SupaBaseApp(navController: NavHostController, modifier: Modifier){
             )
         }
         composable("signup") {
-            SignUpScreen(
+            PatientSignUpScreen(
                 onSignUpSuccess = {
                     navController.navigate("signin")
                 },

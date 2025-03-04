@@ -27,7 +27,8 @@ import io.github.jan.supabase.compose.auth.composeAuth
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignUpScreen(onSignUpSuccess: () -> Unit, onNavigateSignIn: () -> Unit) {
+fun DoctorSignUpScreen(modifier: Modifier) {
+    //onSignUpSuccess: () -> Unit, onNavigateSignIn: () -> Unit,onNavigateToDoctorsForm: () -> Unit
     val userEmail = remember { mutableStateOf("") }
     val userPassword = remember { mutableStateOf("") }
     val context = LocalContext.current
@@ -77,7 +78,7 @@ fun SignUpScreen(onSignUpSuccess: () -> Unit, onNavigateSignIn: () -> Unit) {
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "Create your account in less than a minute.",
+                text = "Create your  Doctor's account in less than a minute.",
                 style = MaterialTheme.typography.titleMedium
             )
 
@@ -97,6 +98,23 @@ fun SignUpScreen(onSignUpSuccess: () -> Unit, onNavigateSignIn: () -> Unit) {
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(16.dp))
+
+            OutlinedTextField(
+                value = userEmail.value,
+                onValueChange = { userEmail.value = it },
+                label = { Text("Phone") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+                shape = RoundedCornerShape(10.dp),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = Color(0xff57CACA),
+                    unfocusedBorderColor = Color.Gray,
+                    focusedLabelColor = Color(0xff57CACA)
+                ),
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
             OutlinedTextField(
                 value = userPassword.value,
                 onValueChange = { userPassword.value = it },
@@ -123,6 +141,20 @@ fun SignUpScreen(onSignUpSuccess: () -> Unit, onNavigateSignIn: () -> Unit) {
                 }
             )
 
+            Spacer(Modifier.height(32.dp))
+
+            Row {
+                Text("To complete registration ", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.padding(top = 13.dp))
+                Spacer(Modifier.height(4.dp))
+                TextButton(
+                    onClick = {
+                       // onNavigateToDoctorsForm()
+                    }
+                ) {
+                    Text("Click here", color = Color(0xff57CACA), style = MaterialTheme.typography.bodyLarge)
+                }
+            }
+
             Spacer(modifier = Modifier.weight(0.5f))
 
             Button(
@@ -130,9 +162,9 @@ fun SignUpScreen(onSignUpSuccess: () -> Unit, onNavigateSignIn: () -> Unit) {
                     if (userEmail.value.isNotEmpty() && userPassword.value.isNotEmpty()) {
                         authViewModel.signUp(context, userEmail.value, userPassword.value)
                     } else {
-                        Toast.makeText(context, "Please enter email and password", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Please enter email ,password and phone number", Toast.LENGTH_SHORT).show()
                     }
-                    onSignUpSuccess()
+                 //   onSignUpSuccess()
                 },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(Color(0xff57CACA)),
@@ -142,28 +174,13 @@ fun SignUpScreen(onSignUpSuccess: () -> Unit, onNavigateSignIn: () -> Unit) {
             }
             Spacer(modifier = Modifier.height(20.dp))
 
-            Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                HorizontalDivider(modifier = Modifier.weight(1f), color = Color.Black)
-                Text(" Or ", color = Color.Black, modifier = Modifier.padding(horizontal = 10.dp))
-                HorizontalDivider(modifier = Modifier.weight(1f), color = Color.Black)
-            }
-            Spacer(modifier = Modifier.height(20.dp))
-
-            Button(
-                onClick = {
-                    action.startFlow()
-                },
-                modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(Color.Black),
-                shape = RoundedCornerShape(10.dp)
-            ) {
-                Text("Sign up with Google", color = Color.White)
-            }
             Spacer(modifier = Modifier.weight(0.5f))
             Row {
                 Text("Already have an account ?", modifier = Modifier.padding(top = 13.dp), style = MaterialTheme.typography.titleMedium)
                 Spacer(modifier = Modifier.width(2.dp))
-                TextButton(onClick = onNavigateSignIn) {
+                TextButton(onClick ={}
+                    // onNavigateSignIn
+                ) {
                     Text("Sign In", color = Color(0xff57CACA),style = MaterialTheme.typography.titleMedium)
                 }
             }
@@ -175,6 +192,6 @@ fun SignUpScreen(onSignUpSuccess: () -> Unit, onNavigateSignIn: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-fun SignUpScreenPreview() {
-    SignUpScreen(onSignUpSuccess = {}, onNavigateSignIn = {})
+fun DoctorSignUpScreenPreview() {
+    DoctorSignUpScreen(modifier = Modifier)
 }
