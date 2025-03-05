@@ -27,7 +27,8 @@ MediLink is a **telehealth** application that connects users with **volunteer do
 ---
 
 ## 📱 Screenshots (Coming Soon)
----![Screenshot (20)](https://github.com/user-attachments/assets/9ab4d540-57c3-4bf3-9bb1-cd4231070078)
+
+![Screenshot_20250305-162328](https://github.com/user-attachments/assets/dda52e59-0a3e-4bf1-b8c8-84bb94cbed1d)
 
 
 ## 📦 Installation & Setup  
