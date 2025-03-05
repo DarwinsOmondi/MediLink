@@ -1,4 +1,4 @@
-![Screenshot (31)](https://github.com/user-attachments/assets/3301fe34-02e9-434f-a854-6047ae850d25)# MediLink - Telehealth App 🌍💙
+# MediLink - Telehealth App 🌍💙
 
 MediLink is a **telehealth** application that connects users with **volunteer doctors** and **mental health professionals** for free consultations. It also provides self-care resources and emergency guidance, ensuring accessible healthcare for all.  
 
