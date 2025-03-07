@@ -10,7 +10,6 @@ MediLink is a **telehealth** application that connects users with **volunteer do
 ✔ **Emergency Guidance** (AI-driven suggestions & contacts)  
 
 ---
-
 ## 🛠️ Tech Stack  
 ### **Frontend:**  
 - **Jetpack Compose** (Modern UI)  
