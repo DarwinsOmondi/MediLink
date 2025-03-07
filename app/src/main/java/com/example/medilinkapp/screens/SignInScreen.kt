@@ -47,7 +47,7 @@ import com.example.medilinkapp.data.model.UserState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignInScreen(onSignInSuccess: () -> Unit, onNavigateToSignUp: () -> Unit) {
+fun SignInScreen(onSignInSuccess: () -> Unit, onNavigateToSignUp: () -> Unit, onNavigateHomeScreen: () -> Unit) {
     val userEmail = remember { mutableStateOf("") }
     val userPassword = remember { mutableStateOf("") }
     val context = LocalContext.current
@@ -133,7 +133,7 @@ fun SignInScreen(onSignInSuccess: () -> Unit, onNavigateToSignUp: () -> Unit) {
                 onClick = {
                     if (userEmail.value.isNotEmpty() && userPassword.value.isNotEmpty()) {
                         authViewModel.logIn(context, userEmail.value, userPassword.value)
-                        onSignInSuccess()
+                        onNavigateHomeScreen()
                     } else {
                         Toast.makeText(context, "Please enter email and password", Toast.LENGTH_SHORT).show()
                     }
@@ -186,5 +186,5 @@ fun SignInScreen(onSignInSuccess: () -> Unit, onNavigateToSignUp: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun SignInScreenPreview() {
-    SignInScreen(onSignInSuccess = {}, onNavigateToSignUp = {})
+    SignInScreen(onSignInSuccess = {}, onNavigateToSignUp = {}, onNavigateHomeScreen = {})
 }

@@ -24,12 +24,14 @@ import com.example.medilinkapp.data.model.UserState
 import com.example.medilinkapp.data.network.SupabaseClient.client
 import io.github.jan.supabase.compose.auth.composable.rememberLoginWithGoogle
 import io.github.jan.supabase.compose.auth.composeAuth
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PatientSignUpScreen(onSignUpSuccess: () -> Unit, onNavigateSignIn: () -> Unit) {
+fun PatientSignUpScreen(onSignUpSuccess: () -> Unit, onNavigateHomeScreen: () -> Unit,onNavigateSignIn: () -> Unit) {
     val userEmail = remember { mutableStateOf("") }
     val userPassword = remember { mutableStateOf("") }
+    val userPhone = remember { mutableStateOf("") }
     val context = LocalContext.current
     val togglePasswordVisibility = remember { mutableStateOf(false) }
     val authViewModel: SupabaseViewModel = viewModel()
@@ -98,6 +100,20 @@ fun PatientSignUpScreen(onSignUpSuccess: () -> Unit, onNavigateSignIn: () -> Uni
             )
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedTextField(
+                value = userPhone.value,
+                onValueChange = { userPhone.value = it },
+                label = { Text("Phone") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                shape = RoundedCornerShape(10.dp),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = Color(0xff57CACA),
+                    unfocusedBorderColor = Color.Gray,
+                    focusedLabelColor = Color(0xff57CACA)
+                ),
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            OutlinedTextField(
                 value = userPassword.value,
                 onValueChange = { userPassword.value = it },
                 label = { Text("Password") },
@@ -127,8 +143,10 @@ fun PatientSignUpScreen(onSignUpSuccess: () -> Unit, onNavigateSignIn: () -> Uni
 
             Button(
                 onClick = {
-                    if (userEmail.value.isNotEmpty() && userPassword.value.isNotEmpty()) {
-                        authViewModel.signUp(context, userEmail.value, userPassword.value)
+                    if (userEmail.value.isNotEmpty() && userPassword.value.isNotEmpty()&& userPhone.value.isNotEmpty()) {
+                        authViewModel.signUpPatient(context, userEmail.value,userPhone.value,userPassword.value)
+                        authViewModel.logIn(context, userEmail.value, userPassword.value)
+                        onNavigateHomeScreen()
                     } else {
                         Toast.makeText(context, "Please enter email and password", Toast.LENGTH_SHORT).show()
                     }
@@ -176,5 +194,5 @@ fun PatientSignUpScreen(onSignUpSuccess: () -> Unit, onNavigateSignIn: () -> Uni
 @Preview(showBackground = true)
 @Composable
 fun PatientSignUpScreenPreview() {
-    PatientSignUpScreen(onSignUpSuccess = {}, onNavigateSignIn = {})
+    PatientSignUpScreen(onSignUpSuccess = {}, onNavigateHomeScreen = {},onNavigateSignIn = {})
 }

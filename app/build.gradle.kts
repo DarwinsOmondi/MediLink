@@ -57,6 +57,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+    implementation("io.github.jan-tennert.supabase:postgrest-kt:1.3.2")
     implementation("io.github.jan-tennert.supabase:gotrue-kt:1.3.2")
     implementation("io.github.jan-tennert.supabase:compose-auth:1.3.2")
     implementation("io.github.jan-tennert.supabase:compose-auth-ui:1.3.2")
@@ -77,4 +79,10 @@ dependencies {
     implementation(libs.androidx.camera.lifecycle)
     implementation(libs.androidx.camera.view)
     implementation(libs.androidx.camera.core)
+
+    // Google Fit API
+    implementation("com.google.android.gms:play-services-fitness:21.2.0")
+
+    // Permissions for Camera, Microphone, GPS
+    implementation("com.google.accompanist:accompanist-permissions:0.31.1-alpha")
 }

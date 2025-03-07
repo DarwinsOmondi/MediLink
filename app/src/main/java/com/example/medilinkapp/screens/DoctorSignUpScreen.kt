@@ -37,6 +37,8 @@ import java.util.Locale
 @Composable
 fun DoctorSignUpScreen() {
     val userEmail = remember { mutableStateOf("") }
+    val fullname = remember { mutableStateOf("") }
+    val phone = remember { mutableStateOf("") }
     val medicalRegistrationNumber = remember { mutableStateOf("") }
     val hospital = remember { mutableStateOf("") }
     val yearsOfExperience = remember { mutableStateOf("") }
@@ -91,7 +93,7 @@ fun DoctorSignUpScreen() {
                 color = Color(0xFF555555)
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             // Email Field
             OutlinedTextField(
@@ -108,12 +110,25 @@ fun DoctorSignUpScreen() {
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            OutlinedTextField(
+                value = fullname.value,
+                onValueChange = { fullname.value = it },
+                label = { Text("full name") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                shape = RoundedCornerShape(10.dp),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = Color(0xFF57CACA),
+                    unfocusedBorderColor = Color.Gray,
+                    focusedLabelColor = Color(0xFF57CACA)
+                ),
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(8.dp))
 
             // Phone Field
             OutlinedTextField(
-                value = userEmail.value,
-                onValueChange = { userEmail.value = it },
+                value = phone.value,
+                onValueChange = { phone.value = it },
                 label = { Text("Phone") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
                 shape = RoundedCornerShape(10.dp),
@@ -125,7 +140,7 @@ fun DoctorSignUpScreen() {
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             // Medical Registration Number Field
             OutlinedTextField(
@@ -142,7 +157,7 @@ fun DoctorSignUpScreen() {
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             // Hospital Field
             OutlinedTextField(
@@ -159,7 +174,7 @@ fun DoctorSignUpScreen() {
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             // Years of Experience Field
             OutlinedTextField(
@@ -193,7 +208,7 @@ fun DoctorSignUpScreen() {
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             // Category Dropdown
             selectedCategory?.let {
@@ -252,7 +267,7 @@ fun DoctorSignUpScreen() {
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             // Country Dropdown
             OutlinedTextField(
@@ -293,7 +308,7 @@ fun DoctorSignUpScreen() {
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             // Password Field
             OutlinedTextField(
@@ -321,13 +336,35 @@ fun DoctorSignUpScreen() {
                 }
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             // Create Account Button
             Button(
                 onClick = {
-                    if (userEmail.value.isNotEmpty() && userPassword.value.isNotEmpty()) {
-                        authViewModel.signUp(context, userEmail.value, userPassword.value)
+                    if (userEmail.value.isNotBlank()&& phone.value.isNotBlank() && userPassword.value.isNotBlank()&& fullname.value.isNotBlank()&&medicalRegistrationNumber.value.isNotBlank()
+                        &&hospital.value.isNotBlank()&&yearsOfExperience.value.isNotBlank()&&NationalID.value.isNotBlank()&&selectedCategory!=null&&selectedSpecialization!=null&&selectedCountry.isNotBlank()) {
+                        coroutineScope.launch {
+                            try {
+                                authViewModel.signUpDoctor(
+                                    context,
+                                    userEmail.value,
+                                    phone.value,
+                                    userPassword.value,
+                                    fullname.value,
+                                    medicalRegistrationNumber.value,
+                                    hospital.value,
+                                    yearsOfExperience.value,
+                                    NationalID.value,
+                                    selectedCategory!!,
+                                    selectedSpecialization!!,
+                                    selectedCountry
+                                )
+                            }catch (e:Exception){
+                                Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+                                e.printStackTrace()
+                            }
+                        }
+
                     } else {
                         Toast.makeText(context, "Please fill all fields", Toast.LENGTH_SHORT).show()
                     }

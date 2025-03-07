@@ -77,7 +77,7 @@ fun IllustrationScreen2(
                         color = Color(0xFF333333)
                     )
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(32.dp))
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
