@@ -43,7 +43,7 @@ fun PatientSignUpScreen(onSignUpSuccess: () -> Unit, onNavigateHomeScreen: () ->
     )
 
     LaunchedEffect(Unit) {
-        authViewModel.isUserLoggedIn(context)
+        authViewModel.checkUserLoggedIn(context)
     }
 
     LaunchedEffect(authViewModel.userState.value) {

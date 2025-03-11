@@ -1,6 +1,7 @@
 package com.example.medilinkapp.utils
 
 import android.content.Context
+import androidx.core.content.edit
 
 class SharedPreferenceHelper (private val context: Context){
 
@@ -10,7 +11,7 @@ class SharedPreferenceHelper (private val context: Context){
 
     fun saveStringData(key: String, data: String?){
         val sharedPreference = context.getSharedPreferences(MY_PREF_KEY, Context.MODE_PRIVATE)
-        sharedPreference.edit().putString(key, data).apply()
+        sharedPreference.edit() { putString(key, data) }
     }
 
     fun getStringData(key: String): String?{

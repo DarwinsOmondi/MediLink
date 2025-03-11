@@ -1,5 +1,6 @@
 package com.example.medilinkapp
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,11 +11,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.medilinkapp.screens.*
+
 
 class MainActivity : ComponentActivity() {
 
@@ -22,15 +27,22 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         val healthViewModel: HealthViewModel by viewModels()
+        val supabaseViewModel: SupabaseViewModel by viewModels()
+
+
 
         setContent {
             Scaffold(
                 modifier = Modifier.fillMaxSize(),
                 containerColor = MaterialTheme.colorScheme.background
             ) { innerPadding ->
-                SupaBaseApp(
+                LaunchedEffect(Unit) {
+                    supabaseViewModel.checkUserLoggedIn(this@MainActivity)
+                }
+                SuparBaseApp(
                     modifier = Modifier.padding(innerPadding),
-                    healthViewModel = healthViewModel
+                    healthViewModel = healthViewModel,
+                    supabaseViewModel = supabaseViewModel
                 )
             }
         }
@@ -38,15 +50,19 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun SupaBaseApp(
+fun SuparBaseApp(
     modifier: Modifier = Modifier,
-    healthViewModel: HealthViewModel
+    healthViewModel: HealthViewModel,
+    supabaseViewModel: SupabaseViewModel
 ) {
     val navController = rememberNavController()
 
+
+    val startDestination = "signin"
+
     NavHost(
         navController = navController,
-        startDestination = "welcome"
+        startDestination = startDestination
     ) {
         composable("signin") {
             SignInScreen(
@@ -113,7 +129,9 @@ fun SupaBaseApp(
         }
 
         composable("homeScreen") {
-            HomeScreen(viewModel = healthViewModel, activity = (navController.context as ComponentActivity))
+            HomeScreen(supabaseViewModel, onNavigateToSignIn = {
+                navController.navigate("signin")
+            })
         }
     }
 }

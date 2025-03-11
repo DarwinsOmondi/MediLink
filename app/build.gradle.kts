@@ -59,6 +59,7 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
     implementation("io.github.jan-tennert.supabase:postgrest-kt:1.3.2")
+    implementation("io.github.jan-tennert.supabase:storage-kt:1.3.2")
     implementation("io.github.jan-tennert.supabase:gotrue-kt:1.3.2")
     implementation("io.github.jan-tennert.supabase:compose-auth:1.3.2")
     implementation("io.github.jan-tennert.supabase:compose-auth-ui:1.3.2")

@@ -173,13 +173,13 @@ class SupabaseViewModel : ViewModel() {
         }
     }
 
-    fun isUserLoggedIn(context: Context) {
+    fun checkUserLoggedIn(context: Context) {
         viewModelScope.launch {
             _userState.value = UserState.Loading
             try {
                 val token = getToken(context)
                 if (token.isNullOrEmpty()) {
-                    _userState.value = UserState.Success("User not logged in")
+                    _userState.value = UserState.Error("User not logged in")
                 } else {
                     client.gotrue.refreshCurrentSession()
                     saveToken(context)
