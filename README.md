@@ -1,4 +1,4 @@
-# MediLink - Telehealth App 🌍💙
+# MediLink - Telehealth App(still in development phase) 🌍💙
 
 MediLink is a **telehealth** application that connects users with **volunteer doctors** and **mental health professionals** for free consultations. It also provides self-care resources and emergency guidance, ensuring accessible healthcare for all.  
 
