@@ -8,7 +8,6 @@ MediLink is a **telehealth** application that connects users with **volunteer do
 ✔ **Real-Time Chat** (With Supabase Realtime)  
 ✔ **Self-Care Resources** (Health Articles, Videos)  
 ✔ **Emergency Guidance** (AI-driven suggestions & contacts)  
-
 ---
 ## 🛠️ Tech Stack  
 ### **Frontend:**  
